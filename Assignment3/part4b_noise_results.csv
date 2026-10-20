@@ -1,0 +1,5 @@
+Model,Clean val acc,10% noisy val acc,Drop (pts)
+"AdaBoost (depth=8, lr=0.5) @ round 343",0.8704 ± 0.0033,0.8420 ± 0.0066,2.8360 ± 0.3459
+AdaBoost @ round 500,0.8701 ± 0.0030,0.8447 ± 0.0064,2.5400 ± 0.4062
+"AdaBoost @ own best round (clean 343, noisy 498)",0.8704 ± 0.0033,0.8456 ± 0.0062,2.4800 ± 0.3140
+Random forest,0.8613 ± 0.0043,0.8588 ± 0.0038,0.2560 ± 0.2504
