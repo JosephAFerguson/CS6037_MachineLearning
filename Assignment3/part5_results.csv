@@ -1,0 +1,8 @@
+,Val accuracy,Macro-F1,Δ vs best member
+Tree,0.7768,0.7756,-0.103
+Random forest,0.8664,0.8642,-0.0134
+AdaBoost,0.8776,0.8771,-0.0022
+Grad boosting,0.8798,0.8792,0.0
+Hard voting,0.8772,0.8754,-0.0026
+Soft voting,0.8702,0.8688,-0.0096
+Stacking (LogReg),0.8794,0.8792,-0.0004
