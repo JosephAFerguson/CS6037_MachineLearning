@@ -1,0 +1,5 @@
+Model,Best hyperparameters,"Validation score (mean ± std, 5 seeds)"
+AdaBoost (Fashion-MNIST),"depth=8, lr=0.1, rounds=339",acc 0.8696 ± 0.0054
+HistGradientBoosting (Fashion-MNIST),"lr=0.1, max_depth=4, early-stopped",acc 0.8746 ± 0.0035
+GradientBoostingRegressor (CA Housing),"lr=0.03, max_depth=6, early-stopped",RMSE 0.4643 ± 0.0045
+AdaBoost.R2 (CA Housing),"depth=8, lr=0.5, loss=square, rounds=63",RMSE 0.5454 ± 0.0121

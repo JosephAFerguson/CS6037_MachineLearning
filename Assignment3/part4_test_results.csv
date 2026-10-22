@@ -1,0 +1,6 @@
+Model,"Test score (mean ± std, 5 seeds)"
+AdaBoost (Fashion-MNIST),acc 0.8612 ± 0.0040
+HistGradientBoosting (Fashion-MNIST),acc 0.8648 ± 0.0018
+Single tree (CA Housing),RMSE 0.6503 ± 0.0041
+GradientBoostingRegressor (CA Housing),RMSE 0.4663 ± 0.0097
+AdaBoost.R2 (CA Housing),RMSE 0.5453 ± 0.0082
