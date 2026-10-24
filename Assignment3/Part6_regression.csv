@@ -1,0 +1,17 @@
+Method,Best Hyperparameters,Test RMSE,Test MAE,Train Time (s),Predict Time (ms / 1k samples),Model Size (nodes)
+Tree (RMSE),"criterion=squared_error, ccp_alpha=0.0006, min_samples_leaf=20",0.625 ± 0.011,0.432 ± 0.007,0.061 ± 0.002,0.232 ± 0.027,269.800 ± 4.833
+Tree (MAE),"criterion=absolute_error, ccp_alpha=0.0006, min_samples_leaf=20",0.639 ± 0.006,0.419 ± 0.004,4.275 ± 0.042,0.214 ± 0.008,191.800 ± 13.363
+Pasting,"n_estimators=300, max_samples=0.1, max_features=1.0, bootstrap=False",0.558 ± 0.007,0.383 ± 0.004,0.270 ± 0.002,35.559 ± 2.466,763419.600 ± 369.420
+Bagging,"n_estimators=300, max_samples=1.0, max_features=1.0, bootstrap=True",0.511 ± 0.010,0.334 ± 0.006,1.637 ± 0.017,168.989 ± 9.522,4829283.200 ± 3444.103
+Random Subspaces,"n_estimators=300, max_samples=1.0, max_features=0.5, bootstrap=False",0.548 ± 0.007,0.397 ± 0.004,1.852 ± 0.008,296.373 ± 49.090,7695164.400 ± 5582.213
+Random Patches,"n_estimators=300, max_samples=0.5, max_features=0.5, bootstrap=False",0.553 ± 0.006,0.403 ± 0.005,0.886 ± 0.016,160.698 ± 5.564,3850067.600 ± 2308.449
+Random Forest,"n_estimators=300, criterion=absolute_error, max_features=all available (8), bootstrap=True",0.505 ± 0.008,0.331 ± 0.005,43.923 ± 0.635,13.992 ± 1.006,4776740.000 ± 3825.480
+Extra Trees,"n_estimators=300, criterion=absolute_error, max_features=all available (8), bootstrap=True",0.506 ± 0.007,0.335 ± 0.005,27.034 ± 0.500,14.456 ± 0.090,4751161.200 ± 3494.765
+AdaBoost,"depth=8, rounds=63, lr=0.5, loss=square",0.545 ± 0.007,0.416 ± 0.008,2.063 ± 0.027,5.377 ± 0.454,23914.200 ± 739.602
+Gradient Boosting,"depth=6, n_estimators=2000, lr=0.03, early-stopping",0.466 ± 0.009,0.307 ± 0.006,24.730 ± 3.523,67816.800 ± 9339.743,67816.800 ± 9339.743
+Mean voting,"DecisionTree, RandomForest, AdaBoost, HistGradientBoost",0.500 ± 0.008,0.345 ± 0.005,638.713 ± 7.401,4868740.800 ± 8294.180,4868740.800 ± 8294.180
+,All best hyperparameters above,,,,,
+Stacking (Ridge),"DecisionTree, RandomForest, AdaBoost, GradientBoost",0.464 ± 0.009,0.304 ± 0.006,638.948 ± 7.400,4868740.800 ± 8294.180,4868740.800 ± 8294.180
+,All best hyperparameters above,,,,,
+,and,,,,,
+,Ridge where alpha=1.0,,,,,

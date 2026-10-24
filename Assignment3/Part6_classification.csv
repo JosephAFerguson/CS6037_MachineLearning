@@ -1,0 +1,18 @@
+Method	Best Hyperparameters	Test Accuracy (%)	Macro-F1	Train Time (s)	Predict Time (ms / 1k images)	Model Size (nodes)
+Tree (Gini)	"ccp_alpha=0.0006, min_samples_leaf=20, max_depth=None"	0.763 ± 0.007	0.763 ± 0.007	2.051 ± 0.035	3.639 ± 1.230	229.000 ± 8.672
+Tree (Entropy)	"ccp_alpha=0.0006, min_samples_leaf=20, max_depth=None"	0.767 ± 0.005	0.767 ± 0.005	2.564 ± 0.032	2.930 ± 0.069	437.400 ± 9.749
+Pasting	"n_estimators=300, max_samples=0.1, max_features=1.0, bootstrap=False"	0.821 ± 0.002	0.818 ± 0.002	7.223 ± 3.642	227.304 ± 6.049	81399.200 ± 504.433
+Bagging	"n_estimators=300, max_samples=1.0, max_features=0.1, bootstrap=True"	0.858 ± 0.001	0.857 ± 0.001	7.269 ± 0.065	87.020 ± 5.090	822632.800 ± 4200.731
+Random Subspaces	"n_estimators=300, max_samples=1.0, max_features=0.1, bootstrap=False"	0.858 ± 0.001	0.857 ± 0.001	7.251 ± 0.120	87.384 ± 3.561	822632.800 ± 4200.731
+Random Patches	"n_estimators=300, max_samples=0.1, max_features=0.1, bootstrap=False"	0.824 ± 0.002	0.821 ± 0.002	1.028 ± 0.084	72.979 ± 4.533	107926.400 ± 627.585
+Random Forest	"n_estimators=300, criterion=entropy, max_features=100, bootstrap=True"	0.857 ± 0.001	0.856 ± 0.001	6.854 ± 0.079	12.908 ± 0.906	446716.400 ± 2152.034
+Extra Trees	"n_estimators=300, criterion=entropy, max_features=100"	0.859 ± 0.001	0.858 ± 0.001	2.021 ± 0.088	17.712 ± 2.317	960364.400 ± 5639.100
+AdaBoost	"max_depth=8, n_estimators=339, learning_rate=0.1"	0.861 ± 0.004	0.862 ± 0.004	588.275 ± 1.576	496.866 ± 18.192	126151.000 ± 1088.691
+Gradient Boosting	"max_depth=4, max_iter=500, learning_rate=0.1, early_stopping=True"	0.865 ± 0.002	0.865 ± 0.001	51.845 ± 2.984	296.748 ± 18.882	36454.400 ± 2228.956
+Hard voting	"DecisionTree, RandomForest, AdaBoost, HistGradientBoost"	0.863 ± 0.001	0.862 ± 0.001	679.258 ± 1.835	891.457 ± 58.272	768969.200 ± 5155.788
+	All best hyperparameters above					
+Soft voting	"DecisionTree, RandomForest, AdaBoost, HistGradientBoost"	0.857 ± 0.001	0.856 ± 0.001	679.258 ± 1.835	890.582 ± 58.266	768969.200 ± 5155.788
+	All best hyperparameters above					
+Stacking (LogReg)	"DecisionTree, RandomForest, AdaBoost, HistGradientBoost"	0.867 ± 0.001	0.867 ± 0.001	683.972 ± 2.104	890.635 ± 58.272	768969.200 ± 5155.788
+	All best hyperparameters above					
+	Max_iter=2000					
