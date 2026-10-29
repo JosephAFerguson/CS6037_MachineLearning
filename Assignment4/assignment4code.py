@@ -75,5 +75,23 @@ def separable(X,y):
     bounds=[(None, None)] * (n + 1), method="highs")
     return res.status == 0 # 0 = feasible solution found
 
+
 def can_shatter(X):
-    labels = itertools.product([-1,1], repeat=len(X))
+    # loop over all possible labelings
+    labelings = itertools.product([-1,1], repeat=len(X))
+    for labels in labelings:
+        y = np.array(labels)
+
+        # if any labeling is not separable, X can not shattered
+        if not separable(X,y):
+            return False
+
+    return True
+
+### a - verify the three non-collinear points
+x1 = np.array([[0,0],[1,0], [0,1]])
+print("Non-collinear:", can_shatter(x1))
+
+### a - verify three collinear points
+x2 = np.array([[0,0],[1,0], [2,0]])
+print("Non-collinear:", can_shatter(x2))
