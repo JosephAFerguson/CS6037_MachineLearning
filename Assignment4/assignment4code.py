@@ -1,5 +1,6 @@
 ### Libraries - Joe
 import itertools
+import pandas as pd
 import numpy as np
 import sklearn as sk
 import matplotlib.pyplot as plt
@@ -7,7 +8,7 @@ import scipy
 from scipy.optimize import brentq, linprog
 import math
 
-"""Part 1 - The VC Confidence term - Joe"""
+### Part 1 - The VC Confidence term - Joe
 
 ### a - Implement fm(h) with η = 0.05 - Joe
 def fm(h,m, η = 0.05):
@@ -62,7 +63,7 @@ for remp in remps:
     else:
         print("For Remp = {}, largest h = {}".format(remp,satisfies[-1]))
 
-"""Part 2 - A shattering checker"""
+### Part 2 - A shattering checker - Joe
 
 ### Implement can_shatter(X) - Joe
 def separable(X,y):
@@ -88,10 +89,116 @@ def can_shatter(X):
 
     return True
 
-### a - verify the three non-collinear points
+### a - verify the three non-collinear points - Joe
 x1 = np.array([[0,0],[1,0], [0,1]])
 print("Non-collinear:", can_shatter(x1))
 
-### a - verify three collinear points
+### a - verify three collinear points - Joe
 x2 = np.array([[0,0],[1,0], [2,0]])
-print("Non-collinear:", can_shatter(x2))
+print("Collinear:", can_shatter(x2))
+
+### b - sweep through n and sample points, report table of shattering - Joe
+ns = [2,3,4,5]
+fracshatter1 = []
+fracshatter2 = []
+for n in ns:
+    print(n)
+    # num shatters
+    shatter1 = 0
+    shatter2 = 0
+
+    for i in range(1000):
+        # sample iid standard normal# Sample iid standard normal points
+        points1 = np.random.normal(size=(n+1, n))
+        points2 = np.random.normal(size=(n+2, n))
+
+        if can_shatter(points1):
+            shatter1 += 1
+
+        if can_shatter(points2):
+            shatter2 += 1
+
+    # add to lists
+    fracshatter1.append(shatter1/1000)
+    fracshatter2.append(shatter2/1000)
+
+# plot table
+fig,ax = plt.subplots()
+ax.axis("off")
+ax.set_title("Shatterability in Dimension")
+table = pd.DataFrame(
+    {
+    "N" : ns,
+    "N+1 Points": fracshatter1,
+    "N+2 Points" : fracshatter2
+})
+axtable = ax.table(cellText=table.values, colLabels=table.columns, loc='center', cellLoc='center')
+plt.show()
+
+### c - take random set, list those not separable - Joe
+ranpoints = np.random.normal(size=(4,2))
+ranpointsLabels = itertools.product([-1,1], repeat=len(ranpoints))
+
+notSep = []
+# iterate through labelings and determine not separable
+for labels in ranpointsLabels:
+    y = np.array(labels)
+
+    if not separable(ranpoints,y):
+        notSep.append(y)
+
+print("Random Points (4,2): {}".format(ranpoints))
+print("Non-separable Labelings: {}".format(notSep))
+
+# visualize one label that is not separable
+y = notSep[0]
+fig,ax = plt.subplots()
+ax.scatter(
+    ranpoints[:,0],
+    ranpoints[:,1],
+    c=y,
+    cmap='bwr',
+    s=100
+)
+
+ax.set_xlabel("x1")
+ax.set_ylabel("x2")
+ax.set_title("4 Points - Non Separable")
+ax.grid(True)
+plt.show()
+
+### d - write an analogous checker for axis-aligned rectangles - Joe
+
+# essentially case one - find boundingbox - check if contains negative point
+def bounding_box_check(X,y):
+    #grab labels
+    pos = X[y==1]
+    neg = X[y==-1]
+
+    #edge check
+    if not len(pos) or not len(neg):
+        return True
+
+    #get bounding box
+    mins = np.min(pos, axis=0)
+    maxs = np.max(pos, axis=0)
+
+    # check if negative exists inside bounding box
+    for p in neg:
+        if np.all(p >=mins) and np.all(p <= maxs):
+            return False
+
+    # none found
+    return True
+
+# new can chatter using bounding box only
+def can_shatter_bounding_box(X):
+    labelings = itertools.product([-1,1], repeat=len(X))
+    for labels in labelings:
+        y = np.array(labels)
+
+        if not bounding_box_check(X,y):
+            return False
+
+    # separable
+    return True
