@@ -218,3 +218,47 @@ def smo(X,y,kernel, eps=10**-8,tau=10**-3,T=10**4,seed=0):
     }
 
     return alpha, bias, monitor
+
+### Helper Plot Decision Boundary function - Joe
+#https://www.geeksforgeeks.org/machine-learning/visualizing-support-vector-machines-svm-using-python/
+#https://scikit-learn.org/stable/auto_examples/svm/plot_linearsvc_support_vectors.html
+#https://medium.com/@isurusandaruwan3840/visualizing-support-vector-machines-svm-using-python-b05d666b197f
+def plotSMO(Xtr,ytr,Kernel, alpha, bias, plt_title, EPS=EPS):
+    fig,ax = plt.subplots()
+
+    # create a grid/mesh for decision boundaries
+    x1 = np.linspace(Xtr[:, 0].min()-1, Xtr[:, 0].max()+1, 200)
+    x2 = np.linspace(Xtr[:, 1].min()-1, Xtr[:, 1].max()+1, 200)
+    xx, yy = np.meshgrid(x1, x2)
+    grid = np.c_[xx.ravel(), yy.ravel()]
+
+    # plot decision boundary
+    if Kernel==K1:
+        k = grid @ Xtr.T 
+    else:
+        k = (grid @ Xtr.T +1)**2
+    f = evalSMO(k,ytr,alpha, bias)
+    f = f.reshape(xx.shape)
+
+
+    # plot data
+    ax.scatter(Xtr[:, 0], Xtr[:, 1],c=ytr, cmap="bwr")
+    # plot decision boundary
+    ax.contour(
+        xx, yy, f,
+        levels=[-1, 0, 1],
+        colors=["black", "red", "black"],
+        linestyles=["--", "-", "--"],
+    )    
+    # plot and circle support vectors
+    sv = alpha > EPS
+    ax.scatter(
+        Xtr[sv, 0], Xtr[sv, 1],
+        s=150,
+        facecolors="none",
+        edgecolors="green",
+        label="Support Vectors"
+    )
+    ax.legend()
+    plt.title(plt_title)
+    plt.show()
